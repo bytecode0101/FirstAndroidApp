@@ -21,6 +21,7 @@ namespace App1
 
             LoadQuestions();
 
+
             DisplayNewQuestion();
 
             var button1 = FindViewById<Button>(Resource.Id.button1);
