@@ -4,6 +4,8 @@ using Android.OS;
 using System;
 using System.Collections.Generic;
 using App1.Models;
+using System.IO;
+using Android.Content.Res;
 
 namespace App1
 {
@@ -36,7 +38,22 @@ namespace App1
         /// </summary>
         private void LoadQuestions()
         {
-            throw new NotImplementedException();
+            var text = "";
+            AssetManager assets = this.Assets;
+            using (StreamReader sr = new StreamReader(assets.Open("Questions.txt")))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            var questionTexts = text.Split(';');
+            foreach (var qTxt in questionTexts)
+            {
+                var q = new Question();
+                var parts = qTxt.Split(',');
+                q.Text = parts[0];
+                q.Answer = parts[1];
+                questions.Add(q);
+            }
         }
 
         /// <summary>
@@ -46,6 +63,9 @@ namespace App1
         {
             var question = SelectQuestion();
             var txtQuestion = FindViewById<TextView>(Resource.Id.txtQuestion);
+            var txtAnswer = FindViewById<TextView>(Resource.Id.txtAnswer);
+            txtQuestion.Text = question.Text;
+            txtAnswer.Text = "";
         }
 
         /// <summary>
@@ -54,7 +74,7 @@ namespace App1
         /// <returns></returns>
         private Question SelectQuestion()
         {
-            throw new NotImplementedException();
+            return questions[0];
         }
 
         /// <summary>
