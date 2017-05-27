@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using App1.Models;
 using System.IO;
 using Android.Content.Res;
+using Android.Views;
+using Android.Content;
 
 namespace App1
 {
@@ -91,7 +93,8 @@ namespace App1
             }
             else
             {
-                //TODO: show a message box with wrong answer
+                var intent = new Intent(this, typeof(ResultActivity));
+                StartActivity(intent);
             }
         }
     }
